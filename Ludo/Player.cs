@@ -6,6 +6,7 @@ namespace Ludo
 {
     class Player
     {
+        // De forskellige farver på ludo brikkerne
         private static int PlayerCount;
         public enum Colors
         {
@@ -21,6 +22,7 @@ namespace Ludo
         }
 
 
+        // Asigner farve til hver spiller
         public Player()
         {
             PlayerCount++;
@@ -39,6 +41,7 @@ namespace Ludo
             }
         }
 
+        // First og second bruges til at tjekke hvem der skal slå først. Den der slår først bliver assigned til first osv.
         public string First
         {
             get; set;
