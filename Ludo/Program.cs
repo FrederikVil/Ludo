@@ -13,7 +13,7 @@ namespace Ludo
                 int rollRed = d.Roll();
                 int rollYellow = d.Roll();
                 int rollASix = d.Roll();
-                int rollTurn = d.Roll();
+                int firstTurnRoll = d.Roll();
                 
                 // Jeg laver spillerne.
                 Player playerOne = new Player();
@@ -30,7 +30,7 @@ namespace Ludo
                 Player First = new Player();
                 Player Second = new Player();
                 
-                // If statement der tjekker hvem der går først. Den der går først bliver assigned til First.
+                // If statement der tjekker hvem der går først. Den der går først bliver assigned til First og den anden til Second.
                 if (rollRed > rollYellow)
                 {
                     Console.WriteLine("Red goes first. Press enter to roll the dice!");
@@ -52,23 +52,62 @@ namespace Ludo
                 }
 
                 Console.ReadLine();
-                Board ludoBoard = new Board();
+                Board startPos = new Board();
+                Player firstStartPos = new Player();
+                Player secondStartPos = new Player();
+                Player firstPosition = new Player();
+                Player secondPosition = new Player();
+                int redPosition = startPos.Ludoboard[0] + firstTurnRoll;
+                int yellowPosition = startPos.Ludoboard[14] + firstTurnRoll;
+                int game = startPos.Ludoboard.Length;
                 
-                // Den tjekker hvem der er først, og så skriver den feltet man starter på, og hvad man slår, samt hvor man 
-                // står i arrayet.
+                
+                // If statement i forhold til hvilken farve blev assigned til First og Second.
+                // Efter den kører første tur igennem med First farven, bliver den anden farve assigned til SecondStartPos
+                // Og First farven bliver assigned til FirstStartPos så mit loop kan se hvilken rækkefølge den skal slå i.
                 if (First.Color == playerOne.Color)
                 {
-                    Console.WriteLine($"{First.Color} starts on field {ludoBoard.RedStartPos} and rolls a {rollTurn}. " +
-                  $"{First.Color} is now on field {ludoBoard.RedStartPos + rollTurn}");
+                    Console.WriteLine($"{First.Color} starts on field {startPos.RedStartPos} and rolls a {firstTurnRoll}. " +
+                  $"{First.Color} is now on field {redPosition}");
+                    // RedStartPos = startPos.Ludoboard[0] + firstTurnRoll;
+                    startPos.RedStartPos = redPosition; 
+                    // Rød bliver nu bare First oog starter på 0 (Rød startposition)
+                    firstStartPos.FirstStartPos = startPos.RedStartPos;
+                    // Gul bliver nu Second og starter på 14 (gul startposition)
+                    secondStartPos.SecondStartsPos = startPos.Ludoboard[14];
+                                
                 }
                 else if (First.Color == playerTwo.Color)
                 {
-                    Console.WriteLine($"{First.Color} starts on field {ludoBoard.YellowStartPos} and rolls a {rollTurn}. " +
-                  $"{First.Color} is now on field {ludoBoard.YellowStartPos + rollTurn}");
+                    Console.WriteLine($"{First.Color} starts on field {startPos.YellowStartPos} and rolls a {firstTurnRoll}. " +
+                  $"{First.Color} is now on field {yellowPosition}");
+                    // Det samme som ovenover, bare omvendt i forhold til farverne.
+                    startPos.YellowStartPos = yellowPosition;
+                    firstStartPos.FirstStartPos = startPos.YellowStartPos;
+                    secondStartPos.SecondStartsPos = startPos.Ludoboard[0];
+
                 }
-              
+                Console.WriteLine("Press enter to roll");
+                Console.ReadLine();
+                
+                // Nu har jeg First og Second placerett rigtigt, og kører bare et loop der starter med Second 
+                // da First lige har taget første tur
+                for (int i = 0; i < 30; i++)
+                {
+                    int rollTurn = d.Roll();
+                    Console.WriteLine($"{Second.Color} is on field {secondStartPos.SecondStartsPos} and rolls a {rollTurn}. " +
+                  $"{Second.Color} is now on field {secondPosition.SecondPosition = secondStartPos.SecondStartsPos+=rollTurn}");
+                    secondStartPos.SecondStartsPos = secondPosition.SecondPosition;
+
+                    if (secondStartPos.SecondStartsPos >= game)
+                    {
+                        Console.WriteLine("Second wins");
+                        break;
+                    }
+                }
 
             }
+            // Exeption: mere end 4 spillere.
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);

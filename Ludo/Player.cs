@@ -34,9 +34,6 @@ namespace Ludo
                 case 2:
                     Color = Colors.Yellow;
                     break;
-
-                case 5:
-                    throw new Exception("Too many players");
                     
             }
         }
@@ -51,5 +48,29 @@ namespace Ludo
         {
             get; set;
         }
+
+        // De 2 næste bruges til at tjekke hvilken af de 2 farver der skal slå efter den første.
+        public int FirstStartPos
+        {
+            get; set;
+        }
+
+        public int SecondStartsPos
+        {
+            get; set;
+        }
+
+        // De næste 2 bruger jeg til at finde ud af hvor de 2 farver står i forhold til hvem der er first og second.
+        public int FirstPosition
+        {
+            get; set;
+        }
+
+        public int SecondPosition
+        {
+            get; set;
+        }
+
+
     }
 }
