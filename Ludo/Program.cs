@@ -18,8 +18,9 @@ namespace Ludo
                 // Jeg laver spillerne.
                 Player playerOne = new Player();
                 Player playerTwo = new Player();
-                Console.WriteLine($"{playerOne.Color} is playing");
-                Console.WriteLine($"{playerTwo.Color} is playing");
+                Console.WriteLine($"{playerOne.Color} is playing (field 0-62)");
+                Console.WriteLine($"{playerTwo.Color} is playing (field 14-14)");
+                Console.WriteLine("The board goes from field 0-62. The first to complete their lap wins!");
 
                 // Kaster terningerne
                 Console.WriteLine("\nRoll dice to see who goes first. Press enter to roll!");
@@ -170,6 +171,7 @@ namespace Ludo
                     }
 
                 }
+                Console.WriteLine("End of game");
             }
             // Exeption: mere end 4 spillere.
             catch (Exception e)
