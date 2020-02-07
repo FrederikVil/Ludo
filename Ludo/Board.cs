@@ -17,6 +17,8 @@ namespace Ludo
         public int RedStartPos = 0;
         public int YellowStartPos = 14;
 
+
+
         
 
         

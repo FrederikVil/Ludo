@@ -59,7 +59,8 @@ namespace Ludo
                 Player secondPosition = new Player();
                 int redPosition = startPos.Ludoboard[0] + firstTurnRoll;
                 int yellowPosition = startPos.Ludoboard[14] + firstTurnRoll;
-                int game = startPos.Ludoboard.Length;
+                int gameRed = startPos.Ludoboard.Length;
+                int gameYellow = startPos.Ludoboard[14];
                 
                 
                 // If statement i forhold til hvilken farve blev assigned til First og Second.
@@ -71,7 +72,7 @@ namespace Ludo
                   $"{First.Color} is now on field {redPosition}");
                     // RedStartPos = startPos.Ludoboard[0] + firstTurnRoll;
                     startPos.RedStartPos = redPosition; 
-                    // Rød bliver nu bare First oog starter på 0 (Rød startposition)
+                    // Rød bliver nu bare First og starter på 0 (Rød startposition)
                     firstStartPos.FirstStartPos = startPos.RedStartPos;
                     // Gul bliver nu Second og starter på 14 (gul startposition)
                     secondStartPos.SecondStartsPos = startPos.Ludoboard[14];
@@ -90,22 +91,85 @@ namespace Ludo
                 Console.WriteLine("Press enter to roll");
                 Console.ReadLine();
                 
-                // Nu har jeg First og Second placerett rigtigt, og kører bare et loop der starter med Second 
+                // Nu har jeg First og Second placeret rigtigt, og kører bare et loop der starter med Second 
                 // da First lige har taget første tur
                 for (int i = 0; i < 30; i++)
                 {
                     int rollTurn = d.Roll();
-                    Console.WriteLine($"{Second.Color} is on field {secondStartPos.SecondStartsPos} and rolls a {rollTurn}. " +
-                  $"{Second.Color} is now on field {secondPosition.SecondPosition = secondStartPos.SecondStartsPos+=rollTurn}");
-                    secondStartPos.SecondStartsPos = secondPosition.SecondPosition;
 
-                    if (secondStartPos.SecondStartsPos >= game)
-                    {
-                        Console.WriteLine("Second wins");
-                        break;
+                    // Jeg sørger for at den siger Second.Color starter på en plads første gang looped kører, og så alle andre gange "er på plads".
+                    if (i < 1)
+                    {    
+                        Console.WriteLine($"{Second.Color} starts on field {secondStartPos.SecondStartsPos} and rolls a {rollTurn}. " +
+                      $"{Second.Color} is now on field {secondPosition.SecondPosition = secondStartPos.SecondStartsPos += rollTurn}. Press enter to roll.");
+                        secondStartPos.SecondStartsPos = secondPosition.SecondPosition;
+                        Console.ReadLine();
                     }
-                }
+                    else
+                    {
+                        Console.WriteLine($"{Second.Color} is on field {secondStartPos.SecondStartsPos} and rolls a {rollTurn}. " +
+                      $"{Second.Color} is now on field {secondPosition.SecondPosition = secondStartPos.SecondStartsPos += rollTurn}. Press enter to roll.");
+                        secondStartPos.SecondStartsPos = secondPosition.SecondPosition;
+                        Console.ReadLine();
+                    }
 
+                    // Hvis rød er Second, så skal rød vinde hvis den rammer 62 eller derover.
+                    if (Second.Color == playerOne.Color )
+                    {
+                        if (secondPosition.SecondPosition >= gameRed)
+                        {
+                            Console.WriteLine($"{Second.Color} landed on or passed field 62 and is now in goal");
+                            break;
+                        }
+                    }
+                    // Hvis gul er Second, skal startpositionen ændres til positionen - arrayets længde hvis den går over arrayets længde (62)
+                    // (for eksempel 66-62 = 4. Så den næste gang loopet kører starter den på 4).
+                    else if (Second.Color == playerTwo.Color)
+                    {
+                        if (secondPosition.SecondPosition >= startPos.Ludoboard.Length)
+                        {
+                            secondStartPos.SecondStartsPos = secondPosition.SecondPosition - startPos.Ludoboard.Length;                          
+                        }
+                        // Hvis startpositionen er større eller lige med 14 og det ikke er en af de første gange loopet kører (den starter på 14) 
+                        // og positionen er mindre end 20 skal gul vinde.
+                        if (secondStartPos.SecondStartsPos >= gameYellow && i > 5 && secondPosition.SecondPosition < 20)
+                        {
+                            Console.WriteLine($"{Second.Color} landed on or passed field 14 and is now in goal");
+                            break;
+                        }
+
+                    }
+
+                   
+                    Console.WriteLine($"{First.Color} is on field {firstStartPos.FirstStartPos} and rolls a {rollTurn}. " +
+                  $"{First.Color} is now on field {firstPosition.FirstPosition = firstStartPos.FirstStartPos += rollTurn}. Press enter to roll.");
+                    firstStartPos.FirstStartPos = firstPosition.FirstPosition;
+                    Console.ReadLine();
+
+                    // Det samme som ovenover, bare med First i stedet for Second.
+                    if (First.Color == playerOne.Color )
+                    {
+                        if (firstPosition.FirstPosition >= gameRed)
+                        {
+                            Console.WriteLine($"{First.Color} landed on or passed field 62 and is now in goal");
+                            break;
+                        }
+                    }
+                    else if (First.Color == playerTwo.Color )
+                    {
+                        if (firstPosition.FirstPosition >= startPos.Ludoboard.Length)
+                        {
+                            firstStartPos.FirstStartPos = firstPosition.FirstPosition - startPos.Ludoboard.Length;
+                           
+                        }
+                        if (firstStartPos.FirstStartPos >= gameYellow && i > 5 && firstPosition.FirstPosition < 20)
+                        {
+                            Console.WriteLine($"{First.Color} landed on or passed field 14 and is now in goal");
+                            break;
+                        }
+                    }
+
+                }
             }
             // Exeption: mere end 4 spillere.
             catch (Exception e)
@@ -117,33 +181,3 @@ namespace Ludo
     }
 }
 
-/*
- if (rollRed > rollYellow)
-                {
-                    Console.WriteLine("Red goes first!");
-                }
-                else if (rollRed < rollYellow)
-                {
-                    Console.WriteLine("Yellow goes first!");
-                }
-                else
-                {
-                  
-                             
-                }
-*/
-
-/*
-Console.WriteLine("\nRoll a 6 to get out of base: Press enter to roll");
-Console.ReadLine();
-Console.WriteLine(rollASix);
-
-if (rollASix == 6)
-{
-// Start red turn
-}
-else if (rollASix != 6)
-{
-// Yellow's turn to roll
-}
-*/
