@@ -6,7 +6,7 @@ namespace Ludo
 {
     class Die
     {
-        // Jeg laver kun en random, ellers får jeg det samme tal hver gang jeg kalder den.
+        
         Random rand = new Random();
 
         // Jeg laver et roll, og kalder den flere gange.
