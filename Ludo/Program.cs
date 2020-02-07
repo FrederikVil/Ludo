@@ -98,7 +98,7 @@ namespace Ludo
                 {
                     int rollTurn = d.Roll();
 
-                    // Jeg sørger for at den siger Second.Color starter på en plads første gang looped kører, og så alle andre gange "er på plads".
+                    // Jeg sørger for at den siger Second.Color "starts on field x" og alle andre gange "is on field".
                     if (i < 1)
                     {    
                         Console.WriteLine($"{Second.Color} starts on field {secondStartPos.SecondStartsPos} and rolls a {rollTurn}. " +
